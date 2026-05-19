@@ -7,24 +7,24 @@
     <language>pt-BR</language>
 
     <item>
-      <title>Versão 2.0.1</title>
-      <sparkle:version>2.0.1</sparkle:version>
-      <sparkle:shortVersionString>2.0.1</sparkle:shortVersionString>
-      <pubDate>Tue, 19 May 2026 16:19:37 +0000</pubDate>
+      <title>Versão 2.0.2</title>
+      <sparkle:version>2.0.2</sparkle:version>
+      <sparkle:shortVersionString>2.0.2</sparkle:shortVersionString>
+      <pubDate>Tue, 19 May 2026 17:31:34 +0000</pubDate>
 
       <enclosure
-        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.1/pulse-macos.zip"
+        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.2/pulse-macos.zip"
         sparkle:os="macos"
-        sparkle:version="2.0.1"
-        sparkle:shortVersionString="2.0.1"
+        sparkle:version="2.0.2"
+        sparkle:shortVersionString="2.0.2"
         length="0"
         type="application/octet-stream" />
 
       <enclosure
-        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.1/pulse-setup-2.0.1.exe"
+        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.2/pulse-setup-2.0.2.exe"
         sparkle:os="windows"
-        sparkle:version="2.0.1"
-        sparkle:shortVersionString="2.0.1"
+        sparkle:version="2.0.2"
+        sparkle:shortVersionString="2.0.2"
         length="0"
         type="application/octet-stream" />
     </item>
