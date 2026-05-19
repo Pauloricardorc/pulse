@@ -1,4 +1,4 @@
-# Pulse v2
+# Pulse
 
 Monitoramento de serviços para desktop — design Glass/Aurora, atalhos de teclado, command palette, métricas (uptime% e p95), incidentes, webhooks (Slack/Discord/genérico) e workspace exportável.
 
