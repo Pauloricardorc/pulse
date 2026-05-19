@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../core/services/auto_update_service.dart';
 import '../../core/services/export_import_service.dart';
 import '../../core/services/notification_service.dart';
 import '../../shared/theme/app_theme.dart';
@@ -110,14 +113,27 @@ class SettingsScreen extends ConsumerWidget {
             ]),
             const SizedBox(height: 18),
             _Section(title: 'Sobre', children: [
-              _Action(
-                icon: Icons.system_update_alt_rounded,
-                title: 'Buscar atualizações',
-                subtitle: 'Abre a página de releases no GitHub.',
-                cta: 'Abrir GitHub',
-                onPressed: () => launchUrl(Uri.parse(
-                    'https://github.com/Pauloricardorc/pulse/releases')),
-              ),
+              if (Platform.isLinux)
+                _Action(
+                  icon: Icons.system_update_alt_rounded,
+                  title: 'Buscar atualizações',
+                  subtitle:
+                      'Abre a página de releases. No Linux a instalação é manual.',
+                  cta: 'Abrir GitHub',
+                  onPressed: () => launchUrl(Uri.parse(
+                      'https://github.com/Pauloricardorc/pulse/releases')),
+                )
+              else
+                _Action(
+                  icon: Icons.system_update_alt_rounded,
+                  title: 'Buscar atualizações',
+                  subtitle:
+                      'Verifica se há versão nova e abre o instalador automaticamente.',
+                  cta: 'Verificar',
+                  onPressed: () async {
+                    await ref.read(autoUpdateServiceProvider).checkNow();
+                  },
+                ),
             ]),
           ],
         ),

@@ -119,3 +119,68 @@ jobs:
         with:
           generate_release_notes: true
           files: release/*
+
+  # ─── Generate appcast.xml and commit to main ────────────────────────────
+  # Sparkle (macOS) and WinSparkle (Windows) read this XML to detect new
+  # versions and download the right enclosure per OS.
+  appcast:
+    needs: [release]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Generate appcast.xml
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          DATE="$(date -R)"
+          REPO="${{ github.repository }}"
+
+          cat > appcast.xml <<EOF
+          <?xml version="1.0" encoding="utf-8"?>
+          <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+            <channel>
+              <title>Pulse</title>
+              <link>https://github.com/${REPO}</link>
+              <description>Pulse update feed</description>
+              <language>pt-BR</language>
+
+              <item>
+                <title>Versão ${VERSION}</title>
+                <sparkle:version>${VERSION}</sparkle:version>
+                <sparkle:shortVersionString>${VERSION}</sparkle:shortVersionString>
+                <pubDate>${DATE}</pubDate>
+
+                <enclosure
+                  url="https://github.com/${REPO}/releases/download/v${VERSION}/pulse-macos.zip"
+                  sparkle:os="macos"
+                  sparkle:version="${VERSION}"
+                  sparkle:shortVersionString="${VERSION}"
+                  length="0"
+                  type="application/octet-stream" />
+
+                <enclosure
+                  url="https://github.com/${REPO}/releases/download/v${VERSION}/pulse-setup-${VERSION}.exe"
+                  sparkle:os="windows"
+                  sparkle:version="${VERSION}"
+                  sparkle:shortVersionString="${VERSION}"
+                  length="0"
+                  type="application/octet-stream" />
+              </item>
+            </channel>
+          </rss>
+          EOF
+
+      - name: Commit appcast.xml
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: appcast.xml
+          commit_message: "chore: appcast for ${{ github.ref_name }}"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"

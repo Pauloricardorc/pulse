@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -17,7 +19,13 @@ class UpdateInfo {
 
 /// Hit the GitHub Releases API once at startup. Returns null when current
 /// is already the latest (or check failed) so the banner stays hidden.
+///
+/// On Windows and macOS the `auto_updater` package already shows a native
+/// Sparkle/WinSparkle popup — we don't want to duplicate that with a banner,
+/// so this returns null on those platforms.
 Future<UpdateInfo?> _checkLatestRelease() async {
+  if (!Platform.isLinux) return null;
+
   const owner = 'Pauloricardorc';
   const repo = 'pulse';
   final dio = Dio(BaseOptions(

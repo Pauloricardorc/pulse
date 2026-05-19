@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 import 'app_router.dart';
+import 'core/services/auto_update_service.dart';
 import 'core/services/monitoring_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/tray_service.dart';
@@ -62,6 +63,8 @@ class _PulseAppState extends ConsumerState<PulseApp> with WindowListener {
     _tray = TrayService();
     await _tray.init();
     await ref.read(monitoringServiceProvider).start();
+    // Fire-and-forget — popup nativo se houver versão nova (Win/Mac).
+    ref.read(autoUpdateServiceProvider).init();
   }
 
   @override
