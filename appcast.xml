@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Appcast consumido por Sparkle (macOS) e WinSparkle (Windows) via auto_updater.
-
-  NÃO EDITE À MÃO: este arquivo é regenerado e commitado automaticamente pelo
-  job `appcast` em .github/workflows/release.yml depois que cada release é
-  publicada. Para lançar uma versão nova, basta:
-
-      git tag vX.Y.Z
-      git push origin --tags
-
-  O workflow constrói os instaladores, cria a Release no GitHub, regenera
-  este XML apontando para os novos enclosures e dá push de volta para `main`.
--->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
   <channel>
     <title>Pulse</title>
     <link>https://github.com/Pauloricardorc/pulse</link>
     <description>Pulse update feed</description>
     <language>pt-BR</language>
+
+    <item>
+      <title>Versão 2.0.2</title>
+      <sparkle:version>2.0.2</sparkle:version>
+      <sparkle:shortVersionString>2.0.2</sparkle:shortVersionString>
+      <pubDate>Tue, 19 May 2026 17:31:34 +0000</pubDate>
+
+      <enclosure
+        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.2/pulse-macos.zip"
+        sparkle:os="macos"
+        sparkle:version="2.0.2"
+        sparkle:shortVersionString="2.0.2"
+        length="0"
+        type="application/octet-stream" />
+
+      <enclosure
+        url="https://github.com/Pauloricardorc/pulse/releases/download/v2.0.2/pulse-setup-2.0.2.exe"
+        sparkle:os="windows"
+        sparkle:version="2.0.2"
+        sparkle:shortVersionString="2.0.2"
+        length="0"
+        type="application/octet-stream" />
+    </item>
   </channel>
 </rss>
