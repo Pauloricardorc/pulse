@@ -95,14 +95,14 @@ jobs:
         # Ad-hoc (--sign -) não precisa de Apple Developer ID.
         run: |
           codesign --force --deep --sign - \
-            build/macos/Build/Products/Release/pulse_v2.app
+            build/macos/Build/Products/Release/Pulse.app
           codesign --verify --deep --strict --verbose=2 \
-            build/macos/Build/Products/Release/pulse_v2.app || true
+            build/macos/Build/Products/Release/Pulse.app || true
 
       - name: Zip .app
         run: |
           cd build/macos/Build/Products/Release
-          ditto -c -k --sequesterRsrc --keepParent pulse_v2.app pulse-macos.zip
+          ditto -c -k --sequesterRsrc --keepParent Pulse.app pulse-macos.zip
           mv pulse-macos.zip $GITHUB_WORKSPACE/
       - uses: actions/upload-artifact@v4
         with:

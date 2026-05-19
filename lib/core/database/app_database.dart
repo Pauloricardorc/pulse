@@ -309,7 +309,18 @@ class AppDatabase extends _$AppDatabase {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dir = await getApplicationSupportDirectory();
-    final file = File(p.join(dir.path, 'pulse_v2.db'));
+    final file = File(p.join(dir.path, 'pulse.db'));
+
+    // Migração transparente: instalações antigas guardavam o banco como
+    // `pulse_v2.db`. Se o nome novo ainda não existe e o antigo está lá,
+    // renomeia — usuário mantém todos os serviços, históricos e webhooks.
+    if (!await file.exists()) {
+      final legacy = File(p.join(dir.path, 'pulse_v2.db'));
+      if (await legacy.exists()) {
+        await legacy.rename(file.path);
+      }
+    }
+
     return NativeDatabase.createInBackground(file);
   });
 }

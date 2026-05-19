@@ -5,10 +5,12 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = pulse_v2
+PRODUCT_NAME = Pulse
 
-// The application's bundle identifier
+// The application's bundle identifier — intencionalmente preservado como
+// pulseV2 para que o Sparkle/auto_updater continue reconhecendo as
+// instalações 2.0.x e consiga aplicar a atualização nos clientes existentes.
 PRODUCT_BUNDLE_IDENTIFIER = com.pauloricardo.pulseV2
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.pauloricardo. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 Paulo Ricardo. Todos os direitos reservados.

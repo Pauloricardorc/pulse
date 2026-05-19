@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Glass / Aurora — pulse v2 design system.
+/// Glass / Aurora — Pulse design system.
 ///
 /// Direction: deep ink background with soft mesh-gradient aurora, glassy
 /// surfaces with translucent borders, neon-cyan accent with magenta highlights.

@@ -1,10 +1,10 @@
-; Inno Setup script for Pulse v2 — produces pulse-setup-X.Y.Z.exe.
-; The CI substitutes @VERSION@ before invoking ISCC.
+; Inno Setup do Pulse — gera pulse-setup-X.Y.Z.exe.
+; A CI substitui @VERSION@ antes de invocar o ISCC.
 
 #define MyAppName "Pulse"
 #define MyAppVersion "@VERSION@"
 #define MyAppPublisher "Paulo Ricardo"
-#define MyAppExeName "pulse_v2.exe"
+#define MyAppExeName "Pulse.exe"
 
 [Setup]
 AppId={{C0F8A9D2-2D7E-4F9C-9B49-9F2A1E2DA73C}
@@ -26,9 +26,9 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 WizardStyle=modern
 Compression=lzma
 SolidCompression=yes
+ShowLanguageDialog=no
 
 [Languages]
-Name: "english";  MessagesFile: "compiler:Default.isl"
 Name: "brazilian"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 
 [Tasks]

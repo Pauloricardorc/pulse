@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Build a Pulse .deb from the Flutter Linux bundle.
-# Expects `flutter build linux --release` to have run.
+# Gera o pacote .deb do Pulse a partir do bundle Linux do Flutter.
+# Pressupõe que `flutter build linux --release` já foi executado.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -22,7 +22,7 @@ cp -r "$BUNDLE"/* "$STAGE/opt/pulse/"
 
 cat > "$STAGE/usr/bin/pulse" <<'EOF'
 #!/usr/bin/env bash
-exec /opt/pulse/pulse_v2 "$@"
+exec /opt/pulse/pulse "$@"
 EOF
 chmod +x "$STAGE/usr/bin/pulse"
 
@@ -31,7 +31,7 @@ cp "$ROOT/assets/icons/app_icon.png" "$STAGE/usr/share/icons/hicolor/512x512/app
 cat > "$STAGE/usr/share/applications/pulse.desktop" <<EOF
 [Desktop Entry]
 Name=Pulse
-Comment=Service monitoring for desktop
+Comment=Monitoramento de serviços para desktop
 Exec=pulse
 Icon=pulse
 Type=Application
@@ -47,10 +47,10 @@ Priority: optional
 Architecture: amd64
 Maintainer: Paulo Ricardo <paulodev01@gmail.com>
 Depends: libgtk-3-0, libnotify4, libsecret-1-0, libayatana-appindicator3-1
-Description: Pulse — desktop service monitoring.
- Pulse keeps an eye on your HTTP services: dashboards, history, incidents,
- webhooks, exportable workspaces.
+Description: Pulse — monitoramento de serviços para desktop.
+ Pulse acompanha seus endpoints HTTP em tempo real: dashboards, histórico,
+ incidentes, webhooks e workspaces exportáveis.
 EOF
 
 dpkg-deb --build "$STAGE" "$DIST/pulse_${VERSION}_amd64.deb"
-echo "Built $DIST/pulse_${VERSION}_amd64.deb"
+echo "Gerado $DIST/pulse_${VERSION}_amd64.deb"

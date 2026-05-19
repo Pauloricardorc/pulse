@@ -85,15 +85,17 @@ Para quem **não** está em Win/Mac (ou que recusou o popup):
 
 ## Dados do usuário são preservados?
 
-**Sim.** O banco local e as preferências ficam em:
+**Sim.** O banco local (`pulse.db`) e as preferências ficam em:
 
 | Plataforma | Localização |
 |------------|-------------|
-| Windows | `%APPDATA%\com.pauloricardo\pulse_v2\` |
+| Windows | `%APPDATA%\com.pauloricardo\pulseV2\` |
 | Linux   | `~/.local/share/com.pauloricardo/pulse_v2/` |
-| macOS   | `~/Library/Application Support/com.pauloricardo/pulse_v2/` |
+| macOS   | `~/Library/Application Support/com.pauloricardo.pulseV2/` |
 
 Atualizar o binário **não toca** nesses arquivos. Schema do Drift evolui via `MigrationStrategy` (`onUpgrade`); hoje só tem `onCreate`. Se você adicionar coluna, escreva a migration antes de taggear.
+
+> **Sobre os nomes "pulseV2" / "pulse_v2" nos paths**: o nome interno do bundle identifier foi preservado de propósito. Mudar isso faria o `auto_updater` recusar a atualização nos clientes já instalados (Sparkle valida que o `.app` novo tem o mesmo bundle id que o antigo) e perderia os dados dos usuários. Pra quem está abrindo o app, em todo lugar visível aparece só "Pulse". Em uma futura major version (3.0) podemos renomear tudo com migração explícita.
 
 ## Onde mora o appcast
 

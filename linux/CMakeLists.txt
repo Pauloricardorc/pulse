@@ -2,11 +2,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(runner LANGUAGES CXX)
 
-# The name of the executable created for the application. Change this to change
-# the on-disk name of your application.
-set(BINARY_NAME "pulse_v2")
-# The unique GTK application identifier for this application. See:
-# https://wiki.gnome.org/HowDoI/ChooseApplicationID
+# The name of the executable created for the application.
+set(BINARY_NAME "pulse")
+# Application identifier preservado para que o ApplicationSupportDirectory
+# continue apontando para a mesma pasta dos usuários já instalados.
 set(APPLICATION_ID "com.pauloricardo.pulse_v2")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent

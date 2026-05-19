@@ -270,9 +270,6 @@ class _TopBar extends ConsumerWidget {
                   size: 22,
                   color: colors.textPrimary,
                   weight: FontWeight.w800)),
-          const SizedBox(width: 10),
-          Text('v2',
-              style: monoStyle(size: 10.5, color: AppTheme.accentSpark)),
           const SizedBox(width: 18),
           Text(
             '${services.length} serviços · ${envs.length} ambientes',

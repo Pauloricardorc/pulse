@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Build a Pulse AppImage from the Flutter Linux bundle.
-# Expects `flutter build linux --release` to have run.
+# Gera o AppImage do Pulse a partir do bundle Linux do Flutter.
+# Pressupõe que `flutter build linux --release` já foi executado.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -21,8 +21,8 @@ cp "$ROOT/assets/icons/app_icon.png" "$APPDIR/pulse.png"
 cat > "$APPDIR/pulse.desktop" <<EOF
 [Desktop Entry]
 Name=Pulse
-Comment=Service monitoring for desktop
-Exec=pulse_v2
+Comment=Monitoramento de serviços para desktop
+Exec=pulse
 Icon=pulse
 Type=Application
 Categories=Network;Monitor;Utility;
@@ -35,11 +35,10 @@ cat > "$APPDIR/AppRun" <<'EOF'
 #!/usr/bin/env bash
 HERE="$(dirname "$(readlink -f "$0")")"
 export LD_LIBRARY_PATH="$HERE/usr/bin/lib:${LD_LIBRARY_PATH:-}"
-exec "$HERE/usr/bin/pulse_v2" "$@"
+exec "$HERE/usr/bin/pulse" "$@"
 EOF
 chmod +x "$APPDIR/AppRun"
 
-# Fetch appimagetool if missing
 APPIMAGETOOL="$ROOT/packaging/linux/appimagetool"
 if [ ! -x "$APPIMAGETOOL" ]; then
   curl -L --silent --show-error \
@@ -49,4 +48,4 @@ if [ ! -x "$APPIMAGETOOL" ]; then
 fi
 
 ARCH=x86_64 "$APPIMAGETOOL" "$APPDIR" "$DIST/Pulse-$VERSION-x86_64.AppImage"
-echo "Built $DIST/Pulse-$VERSION-x86_64.AppImage"
+echo "Gerado $DIST/Pulse-$VERSION-x86_64.AppImage"

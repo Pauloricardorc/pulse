@@ -4,20 +4,22 @@ Monitoramento de serviços para desktop — design Glass/Aurora, atalhos de tecl
 
 ## Instalar (usuário final)
 
-A v2 foi feita para que ninguém precise abrir um terminal. Cada plataforma tem o seu instalador na página de **Releases**: https://github.com/Pauloricardorc/pulse/releases/latest
+O Pulse foi feito para que ninguém precise abrir um terminal. Cada plataforma tem o seu instalador na página de **Releases**: https://github.com/Pauloricardorc/pulse/releases/latest
 
 ### Windows
 - **`pulse-setup-X.Y.Z.exe`** — instalador padrão. Duplo clique → próximo → instalar. Cria atalho no Menu Iniciar (opcional: na Área de Trabalho e na Inicialização).
-- **`pulse-windows-portable.zip`** — versão zip sem instalar. Descompacte e rode `pulse_v2.exe`.
+- **`pulse-windows-portable.zip`** — versão zip sem instalar. Descompacte e rode `Pulse.exe`.
 
 ### Linux
 - **`Pulse-X.Y.Z-x86_64.AppImage`** — 1 arquivo, sem instalar. `chmod +x Pulse-*.AppImage` e duplo clique.
 - **`pulse_X.Y.Z_amd64.deb`** — Ubuntu/Debian: `sudo apt install ./pulse_*.deb`. Vira um ícone no menu.
 
 ### macOS
-- **`pulse-macos.zip`** — descompacte e arraste o `pulse_v2.app` para a pasta Aplicativos.
+- **`pulse-macos.zip`** — descompacte e arraste o `Pulse.app` para a pasta Aplicativos.
 
-> Não há cobrança de auto-update. Quando uma versão nova é publicada, o Pulse mostra um banner que abre direto a página de releases.
+> Versões Windows e macOS recebem auto-update via Sparkle/WinSparkle. Linux usa um banner na app com link para a release mais recente.
+
+> **macOS — primeira vez:** se aparecer "A Apple não pôde verificar…", abra Ajustes do Sistema → Privacidade e Segurança → "Abrir Mesmo Assim" para o Pulse. Só na primeira vez.
 
 ## Atalhos
 
@@ -35,9 +37,9 @@ A v2 foi feita para que ninguém precise abrir um terminal. Cada plataforma tem 
 | `N` | Novo serviço |
 | `R` | Recheck em todos |
 
-## Recursos v2
+## Recursos
 
-- **Glass/Aurora UI** — fundo com mesh-gradient animado, surfaces translúcidas, neon-cyan + magenta.
+- **Glass/Aurora UI** — fundo com mesh-gradient sutil, surfaces translúcidas, accent lime + violet.
 - **Check avançado** — método HTTP (GET/POST/PUT/PATCH/DELETE/HEAD), headers, body, timeout configurável.
 - **Critérios de saúde** — status exato, range, body contém, regex, JSON path.
 - **Métricas** — uptime%, p95, avg de latência em janelas 1h/24h/7d/30d.
@@ -45,7 +47,7 @@ A v2 foi feita para que ninguém precise abrir um terminal. Cada plataforma tem 
 - **Tags** — etiquetas livres por ambiente para organização.
 - **Webhooks** — Slack, Discord ou JSON genérico em mudança de status.
 - **Workspace** — exportar/importar serviços, ambientes, tags e webhooks (.pulse.json).
-- **Banner de update** — checa a API do GitHub Releases ao iniciar e mostra um banner se há versão nova.
+- **Auto-update** — Sparkle (macOS) e WinSparkle (Windows) baixam e instalam automaticamente; Linux mostra banner.
 
 ## Desenvolvimento
 
@@ -60,10 +62,10 @@ Schema fica em `lib/core/database/app_database.dart` — rode o build_runner dep
 ### Lançar uma versão
 
 ```bash
-# 1) bump em pubspec.yaml: version: 2.0.1+2
+# 1) bump em pubspec.yaml: version: 2.0.4+5
 # 2) git commit e tag
-git tag v2.0.1
-git push origin v2.0.1
+git tag v2.0.4
+git push origin --tags
 ```
 
 O workflow `.github/workflows/release.yml` constrói:
@@ -71,4 +73,4 @@ O workflow `.github/workflows/release.yml` constrói:
 - **Linux**: `.AppImage` + `.deb`
 - **macOS**: `.zip` do `.app`
 
-… e publica tudo em uma GitHub Release. O Pulse rodando nos usuários detecta a nova tag pela GitHub API e mostra o banner.
+… e publica tudo em uma GitHub Release. O Pulse rodando nos usuários Win/Mac detecta a nova tag via appcast e mostra popup nativo de atualização.
