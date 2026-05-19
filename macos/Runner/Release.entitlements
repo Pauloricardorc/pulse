@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.apple.security.app-sandbox</key>
-	<true/>
+	<!--
+		Pulse não distribui via Mac App Store. O sandbox aqui ficava impedindo
+		o Sparkle (auto_updater) de substituir o .app durante o auto-update,
+		gerando "An error occurred while launching the installer".
+		Sem sandbox o Sparkle escreve normalmente em /Applications.
+	-->
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>com.apple.security.files.user-selected.read-write</key>

@@ -88,6 +88,17 @@ jobs:
           flutter-version: '3.41.9'
       - run: flutter pub get
       - run: flutter build macos --release
+
+      - name: Ad-hoc codesign (deep)
+        # Sparkle/auto_updater exige que o bundle inteiro tenha signature
+        # consistente para conseguir substituir o app no auto-update.
+        # Ad-hoc (--sign -) não precisa de Apple Developer ID.
+        run: |
+          codesign --force --deep --sign - \
+            build/macos/Build/Products/Release/pulse_v2.app
+          codesign --verify --deep --strict --verbose=2 \
+            build/macos/Build/Products/Release/pulse_v2.app || true
+
       - name: Zip .app
         run: |
           cd build/macos/Build/Products/Release

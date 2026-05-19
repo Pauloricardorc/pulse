@@ -28,5 +28,14 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<!--
+		Sparkle 2 / auto_updater — sem sandbox, podemos rodar o installer
+		dentro do próprio processo, evitando o XPC service que falhava com
+		"An error occurred while launching the installer".
+	-->
+	<key>SUEnableInstallerLauncherService</key>
+	<false/>
+	<key>SUEnableDownloaderService</key>
+	<false/>
 </dict>
 </plist>
